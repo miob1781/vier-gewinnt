@@ -1,3 +1,16 @@
+html, body {
+  font-family: Gudea, Garamond, sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  font-family: Special Elite, Garamond, sans-serif;
+}
+
+
+
+/*
+
 .App {
   text-align: center;
 }
@@ -37,3 +50,5 @@
     transform: translateY(0px);
   }
 }
+
+*/
