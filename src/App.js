@@ -2,9 +2,9 @@ import React from 'react';
 // import logo from './logo.svg';
 // import { Counter } from './features/counter/Counter';
 
-// import {Anzeige} from './Anzeige/Anzeige.js';
-// import {Menue} from './Menue/Menue.js';
-// import {Spiel} from './Spiel/Spiel.js';
+import {Menue} from './features/Menue/menue.js';
+// import {Anzeige} from './Anzeige/anzeige.js';
+// import {Spiel} from './Spiel/spiel.js';
 import './App.css';
 
 function App() {
@@ -58,10 +58,10 @@ function App() {
           </a>
         </span> */}
       </header>
-      <main> {/*
+      <main> 
+        <Menue /> {/*
         <Anzeige />
-        <Menue />
-        <Spiel />  */}
+        <Spiel /> */}
       </main>
       <footer>
         <p>Created by Michael Oberst</p>

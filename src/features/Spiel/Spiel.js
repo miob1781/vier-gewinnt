@@ -1,1 +1,1 @@
-import './Spiel.css';
+import './spiel.css';

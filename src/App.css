@@ -1,13 +1,23 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 html, body {
   font-family: Gudea, Garamond, sans-serif;
   margin: 20px;
+  line-height: 1.4;
 }
 
 h1 {
   font-family: Special Elite, Garamond, sans-serif;
+  margin-bottom: 20px;
 }
 
-
+footer {
+  margin-top: 150px;
+}
 
 /*
 
