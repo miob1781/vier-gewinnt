@@ -1,5 +1,4 @@
 import {useDispatch, useSelector} from 'react-redux'
-import { store } from '../../app/store.js'
 import {toggleSpielmodus} from './menueSlice.js'
 
 export const Spielmodus = () => {

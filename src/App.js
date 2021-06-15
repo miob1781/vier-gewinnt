@@ -3,8 +3,8 @@ import React from 'react';
 // import { Counter } from './features/counter/Counter';
 
 import {Menue} from './features/Menue/menue.js';
-// import {Anzeige} from './Anzeige/anzeige.js';
-// import {Spiel} from './Spiel/spiel.js';
+// import {Anzeige} from './features/Anzeige/anzeige.js';
+import {Spiel} from './features/Spiel/spiel.js';
 import './App.css';
 
 function App() {
@@ -60,8 +60,8 @@ function App() {
       </header>
       <main> 
         <Menue /> {/*
-        <Anzeige />
-        <Spiel /> */}
+        <Anzeige /> */
+        <Spiel />}
       </main>
       <footer>
         <p>Created by Michael Oberst</p>

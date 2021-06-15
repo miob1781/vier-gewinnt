@@ -13,6 +13,11 @@ html, body {
 h1 {
   font-family: Special Elite, Garamond, sans-serif;
   margin-bottom: 20px;
+  text-align: center;
+}
+
+main {
+  display: flex;
 }
 
 footer {

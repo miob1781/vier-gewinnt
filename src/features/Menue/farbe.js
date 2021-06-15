@@ -8,14 +8,13 @@ export const Farbe = () => {
 
     const handleFarbeInput = () => {
         const farbe = document.querySelector('input[name="farbe"]:checked').value;
-        const los = document.querySelector('input[type="submit"]');
+        const los = document.getElementById("los");
         dispatch(toggleFarbe(farbe))
-        dispatch(toggleIsReady())
         los.disabled = false
     }
 
     return (
-        <div style={displayFarbe}>
+        <div className='farbe' style={displayFarbe}>
             <p>Wen möchtest du spielen?</p>
             <input type='radio' id='gelb' value='gelb' name='farbe' onChange={handleFarbeInput} />
             <label for='gelb'>Gelb</label>
