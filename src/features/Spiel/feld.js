@@ -1,14 +1,19 @@
+import { configureStore } from "@reduxjs/toolkit"
 import { useSelector, useDispatch } from "react-redux"
 import {insertStein, selectSpieler} from './spielSlice'
+import {store} from '../../app/store'
 
 export const Feld = (props) => {
     const dispatch = useDispatch()
-    const keyName = props.keyName
     const className = 'feld'
     const gridArea = `${props.row} / ${props.col} / ${props.row} / ${props.col}`
-    const farbe = useSelector(state => state.spiel.felder[keyName].farbe)
     const spieler = useSelector(selectSpieler)
-    const isNextField = useSelector(state => state.spiel.felder[keyName].isNextField)
+    const feldKey = props.feldKey
+    const feld = useSelector(state => state.spiel.felder.filter(
+        f => f.feldKey === feldKey
+    )[0])
+    const farbe = feld.farbe
+    const isNextField = feld.isNextField
 
     const findFeldFarbe = () => {
         let color
@@ -59,20 +64,17 @@ export const Feld = (props) => {
     }
 
     const handleClick = ({target}) => {
-        dispatch(insertStein({
-            feld: keyName,
-            farbe: spieler
-        }))
+        dispatch(insertStein(feld))
     }
 
     return (
         <div
-            key={keyName}
+            key={feldKey}
             className={className}
             style={style}
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             onClick={handleClick}
-        ><h5>{props.row}</h5></div>
+        ></div>
     )
 }

@@ -1,22 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-let felder = {}
-for (let i=1; i<43; i++) {
-    let feldKey = 'feld' + i.toString()
-    let row = Math.floor(i / 7) + 1
+let felder = []
+let id = 0
+let row, col
 
-    let col
-    i % 6 === 0 ? col = 6 : col = i % 6
-
-    let isNextField
-    row === 6 ? isNextField = true : isNextField = false
-
-    felder[feldKey] = {
-        feld: feldKey,
-        row: row,
-        col: col,
-        farbe: 'leer',
-        isNextField: isNextField
+for (let i=1; i<7; i++) {
+    row = i
+    for (let j=1; j<8; j++) {
+        col = j
+        id++
+        let feldKey = 'feld' + id.toString()
+        let isNextField
+        row === 6 ? isNextField = true : isNextField = false
+        
+        felder.push({
+            feldKey: feldKey,
+            row: row,
+            col: col,
+            farbe: 'leer',
+            isNextField: isNextField
+        })
     }
 }
 
@@ -29,9 +32,17 @@ export const spielSlice = createSlice({
     },
     reducers: {
         insertStein: (state, action) => {
-            const feldKey = action.payload.feld
-            state.felder[feldKey].farbe = action.payload.farbe
+            const feld = action.payload
+            feld.farbe = state.spieler
+            feld.isNextField = false
+            if (feld.row > 1) {
+                felder.filter(f => f.col === feld.col && f.row === feld.row - 1)[0].isNextField = true
+            }
             state.spieler === 'rot' ? state.spieler = 'gelb' : state.spieler = 'rot'
+        },
+        setWinner: (state, action) => {
+            const farbe = state.spieler
+
         }
     }
 })
