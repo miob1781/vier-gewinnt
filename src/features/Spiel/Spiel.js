@@ -1,6 +1,6 @@
 import './spiel.css';
 import {Feld} from './feld.js'
-import {changeFarbe} from './spielSlice.js'
+import { useSelector } from 'react-redux';
 
 export const Spiel = () => {
     const generateFelder = () => {
@@ -13,8 +13,9 @@ export const Spiel = () => {
             for (let j=1; j<8; j++) {
                 col = j
                 id++
+                let keyName = 'feld' + id.toString()
                 let feld = <Feld
-                    id={id}
+                    keyName={keyName}
                     row={row}
                     col={col} />
                 felderArray.push(feld)
