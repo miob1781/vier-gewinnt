@@ -33,27 +33,13 @@ export const Feld = (props) => {
         backgroundColor: findFeldFarbe()
     }
 
-    const displayColorMouseOver = () => {
-        let color
-        if (spieler === 'rot' && isNextField) {
-            color = 'red'
-        } else if (spieler === 'rot' && !isNextField) {
-            color = 'darkred'
-        } else if (spieler === 'gelb' && isNextField) {
-            color = 'yellow'
-        } else if (spieler === 'gelb' && !isNextField) {
-            color = 'darkyellow'
-        }
-        return color
-    }
-
     const handleMouseOver = ({target}) => {
-        if (farbe === 'leer') {
-            target.style.backgroundColor = displayColorMouseOver()
-            if (isNextField) {
-                target.style.cursor = 'pointer'
-                target.style.border = 'orange 2px solid'
-            }
+        if (isNextField) {
+            let color
+            spieler === 'rot' ? color = 'red' : color = 'yellow'
+            target.style.backgroundColor = color
+            target.style.cursor = 'pointer'
+            target.style.border = 'orange 2px solid'
         }
     }
 
@@ -75,7 +61,14 @@ export const Feld = (props) => {
                 dispatch(changeToNextField(nextFieldFeldKey))
             }
             dispatch(toggleSpieler())
+            target.style.border = 'none'
         }
+    }
+
+    const handleMouseDown = ({target}) => {
+        let color
+        spieler === 'rot' ? color = 'darkred' : color = 'goldenrod'
+        target.style.backgroundColor = color
     }
 
     return (
@@ -86,6 +79,7 @@ export const Feld = (props) => {
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             onClick={handleClick}
+            onMouseDown={handleMouseDown}
         ></div>
     )
 }

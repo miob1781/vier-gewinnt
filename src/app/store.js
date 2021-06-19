@@ -6,7 +6,6 @@ import spielReducer from '../features/Spiel/spielSlice'
 
 export const store = configureStore({
   reducer: {
-    anzeige: anzeigeReducer,
     menue: menueReducer,
     spiel: spielReducer
   },

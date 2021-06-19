@@ -28,7 +28,7 @@ export const spielSlice = createSlice({
     initialState: {
         felder: felder,
         spieler: 'rot',
-        status: 'laufend'
+        status: 'vorSpiel'
     },
     reducers: {
         toggleSpieler: (state, action) => {
@@ -50,6 +50,9 @@ export const spielSlice = createSlice({
         setWinner: (state, action) => {
             const farbe = state.spieler
 
+        },
+        setStatus: (state, action) => {
+            state.status = action.payload
         }
     }
 })
@@ -57,4 +60,4 @@ export const spielSlice = createSlice({
 export const selectSpieler = state => state.spiel.spieler
 
 export default spielSlice.reducer
-export const {toggleSpieler, changeFarbe, changeIsNextField, changeToNextField, setWinner} = spielSlice.actions
+export const {toggleSpieler, changeFarbe, changeIsNextField, changeToNextField, setWinner, setStatus} = spielSlice.actions
