@@ -1,17 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit"
 import { useSelector, useDispatch } from "react-redux"
-import {insertStein, selectSpieler} from './spielSlice'
-import {store} from '../../app/store'
+import {changeFarbe, changeIsNextField, changeToNextField, toggleSpieler, selectSpieler} from './spielSlice'
 
 export const Feld = (props) => {
     const dispatch = useDispatch()
     const className = 'feld'
-    const gridArea = `${props.row} / ${props.col} / ${props.row} / ${props.col}`
+    const row = props.row
+    const col = props.col
+    const gridArea = `${row} / ${col} / ${row} / ${col}`
     const spieler = useSelector(selectSpieler)
     const feldKey = props.feldKey
-    const feld = useSelector(state => state.spiel.felder.filter(
+    const felder = useSelector(state => state.spiel.felder)
+    const feld = felder.filter(
         f => f.feldKey === feldKey
-    )[0])
+    )[0]
     const farbe = feld.farbe
     const isNextField = feld.isNextField
 
@@ -64,7 +65,17 @@ export const Feld = (props) => {
     }
 
     const handleClick = ({target}) => {
-        dispatch(insertStein(feld))
+        if (isNextField) {
+            dispatch(changeFarbe({feldKey: feldKey, farbe: spieler}))
+            dispatch(changeIsNextField(feldKey))
+            if (feld.row > 1) {
+                const nextFieldFeldKey = felder.filter(
+                    f => f.row === row - 1 && f.col === col
+                )[0].feldKey
+                dispatch(changeToNextField(nextFieldFeldKey))
+            }
+            dispatch(toggleSpieler())
+        }
     }
 
     return (

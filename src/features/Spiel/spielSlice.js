@@ -31,14 +31,21 @@ export const spielSlice = createSlice({
         status: 'laufend'
     },
     reducers: {
-        insertStein: (state, action) => {
-            const feld = action.payload
-            feld.farbe = state.spieler
-            feld.isNextField = false
-            if (feld.row > 1) {
-                felder.filter(f => f.col === feld.col && f.row === feld.row - 1)[0].isNextField = true
-            }
+        toggleSpieler: (state, action) => {
             state.spieler === 'rot' ? state.spieler = 'gelb' : state.spieler = 'rot'
+        },
+        changeFarbe: (state, action) => {
+            const feld = state.felder.filter(f => f.feldKey === action.payload.feldKey)[0]
+            const newFarbe = action.payload.farbe
+            feld.farbe = newFarbe
+        },
+        changeIsNextField: (state, action) => {
+            const feld = state.felder.filter(f => f.feldKey === action.payload)[0]
+            feld.isNextField = false
+        },
+        changeToNextField: (state, action) => {
+            const nextField = state.felder.filter(f => f.feldKey === action.payload)[0]
+            nextField.isNextField = true
         },
         setWinner: (state, action) => {
             const farbe = state.spieler
@@ -50,4 +57,4 @@ export const spielSlice = createSlice({
 export const selectSpieler = state => state.spiel.spieler
 
 export default spielSlice.reducer
-export const {insertStein} = spielSlice.actions
+export const {toggleSpieler, changeFarbe, changeIsNextField, changeToNextField, setWinner} = spielSlice.actions
