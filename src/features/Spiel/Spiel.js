@@ -10,10 +10,12 @@ export const Spiel = () => {
             const row = item.row
             const col = item.col
             const feldKey = item.feldKey
+
             const feld = <Feld
                 feldKey={feldKey}
                 row={row}
                 col={col} />
+                
             felderArray.push(feld)
         }
         return felderArray

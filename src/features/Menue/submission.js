@@ -1,10 +1,11 @@
-import {useDispatch} from 'react-redux'
-import {setStatus} from './spielSlice.js'
+import {useSelector, useDispatch} from 'react-redux'
+import {setStatus} from '../Spiel/spielSlice.js'
 
 export const Submission = () => {
     const dispatch = useDispatch()
+    const isDisabled = useSelector(state => state.menue.isDisabled)
 
-    const handleSubmissionInput = (e) => {
+    const handleSubmissionInput = () => {
         dispatch(setStatus('laufend'))
     }
 
@@ -12,8 +13,8 @@ export const Submission = () => {
         <button
             type='button'
             id='los'
-            onChange={handleSubmissionInput}
-            disabled
+            onClick={handleSubmissionInput}
+            disabled={isDisabled}
         >Los!</button>
     )
 }

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import {hasWon} from './spielFunctions.js'
 
 let felder = []
 let id = 0
@@ -31,6 +32,9 @@ export const spielSlice = createSlice({
         status: 'vorSpiel'
     },
     reducers: {
+        setStatus: (state, action) => {
+            state.status = action.payload
+        },
         toggleSpieler: (state, action) => {
             state.spieler === 'rot' ? state.spieler = 'gelb' : state.spieler = 'rot'
         },
@@ -47,17 +51,19 @@ export const spielSlice = createSlice({
             const nextField = state.felder.filter(f => f.feldKey === action.payload)[0]
             nextField.isNextField = true
         },
-        setWinner: (state, action) => {
-            const farbe = state.spieler
-
-        },
-        setStatus: (state, action) => {
-            state.status = action.payload
+        toggleHasWon: (state, action) => {
+            state.hasWon = true
         }
+
     }
 })
 
-export const selectSpieler = state => state.spiel.spieler
-
 export default spielSlice.reducer
-export const {toggleSpieler, changeFarbe, changeIsNextField, changeToNextField, setWinner, setStatus} = spielSlice.actions
+export const {
+    toggleSpieler,
+    changeFarbe,
+    changeIsNextField,
+    changeToNextField,
+    setWinner,
+    setStatus
+} = spielSlice.actions

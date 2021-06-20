@@ -5,7 +5,7 @@ export const menueSlice = createSlice({
     initialState: {
         spielmodus: '',
         farbe: '',
-        isReady: false
+        isDisabled: true
     },
     reducers: {
         toggleSpielmodus: (state, action) => {
@@ -14,9 +14,9 @@ export const menueSlice = createSlice({
         toggleFarbe: (state, action) => {
             state.farbe = action.payload
         },
-        toggleIsReady: (state) => {
-            state.isReady = true
-        },
+        toggleIsDisabled: (state, action) => {
+            state.isDisabled = false
+        }
     }
 })
 
@@ -31,4 +31,4 @@ export const selectDisplayFarbe = (state) => {
 }
 
 export default menueSlice.reducer;
-export const { toggleSpielmodus, toggleFarbe, toggleIsReady } = menueSlice.actions;
+export const { toggleSpielmodus, toggleFarbe, toggleIsDisabled } = menueSlice.actions;
