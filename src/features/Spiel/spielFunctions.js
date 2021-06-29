@@ -5,7 +5,6 @@ const getFeld = (felder, row, col) => {
 
 const checkSeries = (c, r, felder, spieler, toChange, hasWon) => {
     let row1, row2, row3, row4, col1, col2, col3, col4
-
     switch (toChange) {
         case 'down':
             row1 = r
@@ -53,15 +52,13 @@ const checkSeries = (c, r, felder, spieler, toChange, hasWon) => {
     let feld3 = getFeld(felder, row3, col3)
     let feld4 = getFeld(felder, row4, col4)
 
-    if (
+    hasWon =
         feld1.farbe === spieler &&
         feld2.farbe === spieler &&
         feld3.farbe === spieler &&
         feld4.farbe === spieler
-        ) {
-        hasWon = true
-        return hasWon
-    }
+
+    return hasWon
 }
 
 export const checkHasWon = (felder, spieler) => {
@@ -69,25 +66,37 @@ export const checkHasWon = (felder, spieler) => {
     let toChange = 'down'
     for (let c=1; c<8; c++) {
         for (let r=1; r<4; r++) {
-            checkSeries(c, r, felder, spieler, toChange, hasWon)
+            hasWon = checkSeries(c, r, felder, spieler, toChange, hasWon)
+            if (hasWon) {
+                return hasWon
+            }
         }
     }
     toChange = 'right'
     for (let c=1; c<5; c++) {
         for (let r=1; r<7; r++) {
-            checkSeries(c, r, felder, spieler, toChange, hasWon)
+            hasWon = checkSeries(c, r, felder, spieler, toChange, hasWon)
+            if (hasWon) {
+                return hasWon
+            }
         }
     }
     toChange = 'downRight'
     for (let c=1; c<5; c++) {
         for (let r=1; r<4; r++) {
-            checkSeries(c, r, felder, spieler, toChange, hasWon)
+            hasWon = checkSeries(c, r, felder, spieler, toChange, hasWon)
+            if (hasWon) {
+                return hasWon
+            }
         }
     }
     toChange = 'upRight'
     for (let c=1; c<5; c++) {
         for (let r=4; r<7; r++) {
-            checkSeries(c, r, felder, spieler, toChange, hasWon)
+            hasWon = checkSeries(c, r, felder, spieler, toChange, hasWon)
+            if (hasWon) {
+                return hasWon 
+            }
         }
     }
     return hasWon

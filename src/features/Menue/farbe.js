@@ -15,12 +15,31 @@ export const Farbe = () => {
     return (
         <div className='farbe' style={displayFarbe}>
             <p>Wen möchtest du spielen?</p>
-            <input type='radio' id='gelb' value='gelb' name='farbe' onChange={handleFarbeInput} />
-            <label for='gelb'>Gelb</label>
+            <input
+                type='radio'
+                id='rot'
+                value='rot'
+                name='farbe'
+                onChange={handleFarbeInput}
+            />
+            <label
+                for='rot'
+                title='Du spielst Rot, Rot beginnt'
+            >Rot</label>
             <br />
-            <input type='radio' id='rot' value='rot' name='farbe' onChange={handleFarbeInput} />
-            <label for='rot'>Rot</label>
+            <input
+                type='radio'
+                id='gelb'
+                value='gelb'
+                name='farbe'
+                onChange={handleFarbeInput}
+            />
+            <label
+                for='gelb'
+                title='Du spielst Gelb, Rot beginnt'
+            >Gelb</label>
             <br />
+
         </div>
     )
 }

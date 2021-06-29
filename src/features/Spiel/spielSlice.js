@@ -29,9 +29,17 @@ export const spielSlice = createSlice({
     initialState: {
         felder: felder,
         spieler: 'rot',
-        status: 'vorSpiel'
+        status: 'vorSpiel',
+        newGame: false,
+        zug: 0
     },
     reducers: {
+        resetFelder: (state, action) => {
+            state.felder = felder
+        },
+        resetSpieler: (state, action) => {
+            state.spieler = 'rot'
+        },
         setStatus: (state, action) => {
             state.status = action.payload
         },
@@ -43,6 +51,13 @@ export const spielSlice = createSlice({
             const newFarbe = action.payload.farbe
             feld.farbe = newFarbe
         },
+        setZug: (state, action) => {
+            if (action.payload === 'add') {
+                state.zug++
+            } else if (action.payload === 'reset') {
+                state.zug = 0
+            }
+        },
         changeIsNextField: (state, action) => {
             const feld = state.felder.filter(f => f.feldKey === action.payload)[0]
             feld.isNextField = false
@@ -53,17 +68,23 @@ export const spielSlice = createSlice({
         },
         toggleHasWon: (state, action) => {
             state.hasWon = true
+        },
+        toggleNewGame: (state, action) => {
+            state.newGame ? state.newGame = false : state.newGame = true
         }
-
     }
 })
 
 export default spielSlice.reducer
 export const {
+    resetFelder,
+    resetSpieler,
     toggleSpieler,
     changeFarbe,
     changeIsNextField,
     changeToNextField,
     setWinner,
-    setStatus
+    setStatus,
+    toggleNewGame,
+    setZug
 } = spielSlice.actions

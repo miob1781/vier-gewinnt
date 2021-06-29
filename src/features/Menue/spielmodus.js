@@ -12,11 +12,29 @@ export const Spielmodus = () => {
     return (
         <div>
             <p>Möchtest du alleine oder zu zweit spielen?</p>
-            <input type='radio' id='allein' value='allein' name='spielmodus' onChange={handleSpielmodusInput}/>
-            <label for='allein'>Allein</label>
+            <input
+                type='radio'
+                id='allein'
+                value='allein'
+                name='spielmodus'
+                onChange={handleSpielmodusInput}
+            />
+            <label
+                for='allein'
+                title='Du spielst allein gegen den Computer'
+            >Allein</label>
             <br />
-            <input type='radio' id='zuZweit' value='zuZweit' name='spielmodus' onChange={handleSpielmodusInput} />
-            <label for='zuZweit'>Zu zweit</label>
+            <input
+                type='radio'
+                id='zuZweit'
+                value='zuZweit'
+                name='spielmodus'
+                onChange={handleSpielmodusInput}
+            />
+            <label
+                for='zuZweit'
+                title='Du spielst am selben Computer gegen einen anderen Spieler'
+            >Zu zweit</label>
             <br />
         </div>
     )

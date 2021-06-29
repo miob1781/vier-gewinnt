@@ -1,12 +1,19 @@
 import {useSelector, useDispatch} from 'react-redux'
-import {setStatus} from '../Spiel/spielSlice.js'
+import {resetFelder, resetSpieler, setStatus, setZug, toggleNewGame} from '../Spiel/spielSlice.js'
 
 export const Submission = () => {
     const dispatch = useDispatch()
     const isDisabled = useSelector(state => state.menue.isDisabled)
+    const newGame = useSelector(state => state.spiel.newGame)
 
     const handleSubmissionInput = () => {
-        dispatch(setStatus('laufend'))
+        if (!newGame) {
+            dispatch(toggleNewGame())
+            dispatch(resetFelder())
+            dispatch(resetSpieler())
+            dispatch(setStatus('laufend'))
+            dispatch(setZug('reset'))
+        }
     }
 
     return (
@@ -15,6 +22,7 @@ export const Submission = () => {
             id='los'
             onClick={handleSubmissionInput}
             disabled={isDisabled}
+            title='Startet neues Spiel'
         >Los!</button>
     )
 }
