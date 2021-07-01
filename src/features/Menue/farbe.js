@@ -1,5 +1,5 @@
 import {useSelector, useDispatch} from 'react-redux'
-import {toggleFarbe, toggleIsDisabled, selectDisplayFarbe} from './menueSlice.js'
+import {setFarbe, setIsDisabled, selectDisplayFarbe, setComputerSpielt} from './menueSlice.js'
 
 export const Farbe = () => {
     const dispatch = useDispatch()
@@ -8,8 +8,11 @@ export const Farbe = () => {
 
     const handleFarbeInput = () => {
         const farbe = document.querySelector('input[name="farbe"]:checked').value;
-        dispatch(toggleFarbe(farbe))
-        dispatch(toggleIsDisabled())
+        let computerFarbe
+        farbe === 'rot' ? computerFarbe = 'gelb' : computerFarbe = 'rot'
+        dispatch(setFarbe(farbe))
+        dispatch(setComputerSpielt(computerFarbe))
+        dispatch(setIsDisabled(false))
     }
 
     return (

@@ -1,15 +1,10 @@
-import {useEffect} from 'react'
-import { useSelector, useDispatch } from "react-redux"
+import {useSelector, useDispatch} from 'react-redux'
 import {
     changeFarbe,
     changeIsNextField,
     changeToNextField,
-    toggleSpieler,
-    setStatus,
-    toggleNewGame,
-    setZug
+    setZugStatus
 } from './spielSlice.js'
-import {checkHasWon} from './spielFunctions.js'
 
 export const Feld = (props) => {
     const dispatch = useDispatch()
@@ -21,9 +16,7 @@ export const Feld = (props) => {
     const farbe = feld.farbe
     const isNextField = feld.isNextField
     const status = useSelector(state => state.spiel.status)
-    const newGame = useSelector(state => state.spiel.newGame)
-    const zug = useSelector(state => state.spiel.zug)
-    const hasWon = useSelector(state => state.spiel.hasWon)
+    const computerZieht = useSelector(state => state.spiel.computerZieht)
 
     const findFeldFarbe = () => {
         let color
@@ -43,7 +36,7 @@ export const Feld = (props) => {
     }
 
     const handleMouseOver = ({target}) => {
-        if (isNextField && status === 'laufend') {
+        if (isNextField && status === 'laufend' && !computerZieht) {
             let color
             spieler === 'rot' ? color = 'red' : color = 'yellow'
             target.style.backgroundColor = color
@@ -61,7 +54,7 @@ export const Feld = (props) => {
     }
 
     const handleMouseDown = ({target}) => {
-        if (isNextField && status === 'laufend') {
+        if (isNextField && status === 'laufend' && !computerZieht) {
             let color
             spieler === 'rot' ? color = 'darkred' : color = 'goldenrod'
             target.style.backgroundColor = color
@@ -69,42 +62,23 @@ export const Feld = (props) => {
     }
     
     const handleClick = ({target}) => {
-        if (isNextField && status === 'laufend') {
+        if (isNextField && status === 'laufend' && !computerZieht) {
             target.style.border = 'none'
             target.style.cursor = 'unset'
-            dispatch(changeFarbe({feldKey: feldKey, farbe: spieler}))
-            dispatch(setZug('add'))
+            dispatch(changeFarbe({
+                feldKey: feldKey,
+                farbe: spieler
+            }))
             dispatch(changeIsNextField(feldKey))
-            if (feld.row > 1) {
+            if (row > 1) {
                 const nextFieldFeldKey = felder.filter(
                     f => f.row === row - 1 && f.col === col
                     )[0].feldKey
                 dispatch(changeToNextField(nextFieldFeldKey))
-                if (newGame) {
-                    dispatch(toggleNewGame())
-                }
             }
+            dispatch(setZugStatus('gezogen'))
         }
     }
-
-    useEffect(() => {
-        if (status === 'laufend' && !newGame) {
-            const resultCheckHasWon = checkHasWon(felder, spieler)
-            if (resultCheckHasWon) {
-                let winnerStatus
-                spieler === 'rot' ? winnerStatus = 'rotWon' : winnerStatus = 'gelbWon'
-                dispatch(setStatus(winnerStatus))
-            } else {
-                dispatch(toggleSpieler())
-            }
-        } 
-    }, [farbe])
-
-    useEffect(() => {
-        if (zug === 42 && !hasWon) {
-            dispatch(setStatus('draw'))
-        }
-    }, [zug])
 
     return (
         <div

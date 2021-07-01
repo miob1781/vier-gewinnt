@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {hasWon} from './spielFunctions.js'
 
 let felder = []
 let id = 0
@@ -30,8 +29,9 @@ export const spielSlice = createSlice({
         felder: felder,
         spieler: 'rot',
         status: 'vorSpiel',
-        newGame: false,
-        zug: 0
+        zug: -1,
+        zugStatus: 'bereit',
+        computerZieht: false
     },
     reducers: {
         resetFelder: (state, action) => {
@@ -40,8 +40,15 @@ export const spielSlice = createSlice({
         resetSpieler: (state, action) => {
             state.spieler = 'rot'
         },
+        resetComputerZieht: (state, action) => {
+            const computerSpielt = action.payload
+            computerSpielt === 'rot' ? state.computerZieht = true : state.computerZieht = false
+        },
         setStatus: (state, action) => {
             state.status = action.payload
+        },
+        setZugStatus: (state, action) => {
+            state.zugStatus = action.payload
         },
         toggleSpieler: (state, action) => {
             state.spieler === 'rot' ? state.spieler = 'gelb' : state.spieler = 'rot'
@@ -69,8 +76,8 @@ export const spielSlice = createSlice({
         toggleHasWon: (state, action) => {
             state.hasWon = true
         },
-        toggleNewGame: (state, action) => {
-            state.newGame ? state.newGame = false : state.newGame = true
+        toggleComputerZieht: (state, action) => {
+            state.computerZieht ? state.computerZieht = false : state.computerZieht = true
         }
     }
 })
@@ -79,12 +86,14 @@ export default spielSlice.reducer
 export const {
     resetFelder,
     resetSpieler,
+    resetComputerZieht,
     toggleSpieler,
+    setZugStatus,
     changeFarbe,
     changeIsNextField,
     changeToNextField,
     setWinner,
     setStatus,
-    toggleNewGame,
-    setZug
+    setZug,
+    toggleComputerZieht
 } = spielSlice.actions

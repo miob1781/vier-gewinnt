@@ -101,3 +101,85 @@ export const checkHasWon = (felder, spieler) => {
     }
     return hasWon
 }
+
+const getFieldsNextMove = (felder, feld, player) => {
+    const fieldsNextMove = felder.map(f => {
+        if (f.feldKey === feld.feldKey) {
+            return {...f, farbe: player}
+        } else {
+            return f
+        }
+    })
+    return fieldsNextMove
+}
+
+const checkFields = (felder, nextFields, player) => {
+    for (let feld of nextFields) {
+        const fieldsNextMove = getFieldsNextMove(felder, feld, player)
+        const playerHasWon = checkHasWon(fieldsNextMove, player)
+        if (playerHasWon) {
+            return feld
+        }
+    }
+}
+
+const checkFieldsNextMove = (felder, feld, spieler, gegner, reihe) => {
+    let wessenReihe
+    reihe === spieler ? wessenReihe = spieler : wessenReihe = gegner
+    let fieldsNextMove = getFieldsNextMove(felder, feld, spieler)
+    const gegnerField = felder.filter(f => f.row === feld.row - 1 && f.col === feld.col)[0]
+    fieldsNextMove = getFieldsNextMove(fieldsNextMove, gegnerField, wessenReihe)
+    let hasWon = checkHasWon(fieldsNextMove, wessenReihe)
+    return hasWon
+}
+
+export const getComputerZug = (felder, spieler) => {
+    let field, gegner
+    spieler === 'rot' ? gegner = 'gelb' : gegner = 'rot'
+    let nextFields = felder.filter(f => f.isNextField)
+
+    // finds winning move
+    field = checkFields(felder, nextFields, spieler)
+    if (field) {
+        return field
+    }
+
+    // averts loss
+    field = checkFields(felder, nextFields, gegner)
+    if (field) {
+        return field
+    }
+    // checks for moves that would lead to immediate loss
+    let fieldsNextMove = nextFields.filter(f =>
+        f.row === 1 || !checkFieldsNextMove(felder, f, spieler, gegner, gegner))
+    if (fieldsNextMove.length > 0) {
+        nextFields = fieldsNextMove
+    }
+
+    // averts destroying one's own opportunities
+    fieldsNextMove = nextFields.filter(f =>
+        f.row === 1 || !checkFieldsNextMove(felder, f, spieler, gegner, spieler))
+    if (fieldsNextMove.length > 0) {
+        nextFields = fieldsNextMove
+    }
+
+    // averts ground row loss
+    const threatGroundRow = felder.filter(f => f.row === 6 && f.farbe === gegner).length === 2
+        && felder.filter(f => f.row === 6 && f.farbe === spieler).length === 0
+    if (threatGroundRow) {
+        nextFields = nextFields.filter(f => f.row === 6 && f.col > 1 && f.col < 7)
+    }
+
+    // prefers middle
+    const middleIsUsable = nextFields.find(f => f.col === 4 && f.row !== 1)
+    if (middleIsUsable) {
+        field = nextFields.filter(f => f.col === 4)[0]
+        return field
+    }
+
+    // selects randomly
+    let indexField = Math.floor(Math.random() * nextFields.length)
+    //alert(indexField)
+    field = nextFields[indexField]
+    return field
+}

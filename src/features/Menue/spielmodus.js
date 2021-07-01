@@ -1,13 +1,25 @@
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {toggleSpielmodus} from './menueSlice.js'
+import {setSpielmodus, setIsDisabled, setComputerSpielt} from './menueSlice.js'
 
 export const Spielmodus = () => {
     const dispatch = useDispatch()
+    const spielmodus = useSelector(state => state.menue.spielmodus)
 
     const handleSpielmodusInput = () => {
-        const spielmodus = document.querySelector('input[name="spielmodus"]:checked').value;
-        dispatch(toggleSpielmodus(spielmodus))
+        const spielmod = document.querySelector('input[name="spielmodus"]:checked').value;
+        dispatch(setSpielmodus(spielmod))
     }
+
+    useEffect(() => {
+        if (spielmodus === 'allein') {
+            dispatch(setIsDisabled(true))
+        }
+        else if (spielmodus === 'zuZweit') {
+            dispatch(setIsDisabled(false))
+            dispatch(setComputerSpielt('spieltNicht'))
+        }
+    }, [spielmodus])
 
     return (
         <div>
