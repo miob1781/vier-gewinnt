@@ -1,5 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import {useEffect} from 'react'
 import {changeText} from './menueSlice.js'
 
 export const Anzeige = () => {
@@ -17,10 +17,7 @@ export const Anzeige = () => {
             newText = 'Unentschieden!'
         }
         dispatch(changeText(newText))
-    }, [status])
+    }, [status, dispatch])
 
-
-    return (
-        <h4 className='anzeige'>{text}</h4>
-    )
+    return <p className='anzeige'>{text}</p>
 }

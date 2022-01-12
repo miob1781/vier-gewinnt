@@ -1,9 +1,11 @@
 .spiel {
     display: inline-grid;
-    width: 480px;
-    height: 390px;
+    max-width: max-content;
+    min-width: 250px;
+    width: max-content;
+    height: auto;
     background-color: cornflowerblue;
-    margin: 0 50px;
+    margin-left: 50px;
     padding: 20px;
     grid-template-columns: repeat(7, 50px);
     grid-template-rows: repeat(6, 50px);
@@ -16,16 +18,3 @@
     border-radius: 50%;
     z-index: 2;
 }
-
-/*
-.overlay {
-    background-color: black;
-    opacity: 0.5;
-    position: absolute;
-    height: 390px;
-    width: 50px;
-    bottom: 98px;
-    right: 689px;
-    visibility: visible;
-    z-index: 3;
-} */

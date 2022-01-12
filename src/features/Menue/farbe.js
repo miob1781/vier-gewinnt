@@ -3,7 +3,6 @@ import {setFarbe, setIsDisabled, selectDisplayFarbe, setComputerSpielt} from './
 
 export const Farbe = () => {
     const dispatch = useDispatch()
-
     const displayFarbe = useSelector(selectDisplayFarbe)
 
     const handleFarbeInput = () => {
@@ -16,7 +15,7 @@ export const Farbe = () => {
     }
 
     return (
-        <div className='farbe' style={displayFarbe}>
+        <form className='farbe' style={displayFarbe} data-testid='farbe'>
             <p>Wen möchtest du spielen?</p>
             <input
                 type='radio'
@@ -24,6 +23,8 @@ export const Farbe = () => {
                 value='rot'
                 name='farbe'
                 onChange={handleFarbeInput}
+                data-testid='rot'
+                checked
             />
             <label
                 for='rot'
@@ -36,13 +37,13 @@ export const Farbe = () => {
                 value='gelb'
                 name='farbe'
                 onChange={handleFarbeInput}
+                data-testid='gelb'
             />
             <label
                 for='gelb'
                 title='Du spielst Gelb, Rot beginnt'
             >Gelb</label>
             <br />
-
-        </div>
+        </form>
     )
 }

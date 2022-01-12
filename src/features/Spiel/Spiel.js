@@ -26,7 +26,8 @@ export const Spiel = () => {
             const feld = <Feld
                 feldKey={feldKey}
                 row={row}
-                col={col} />
+                col={col}
+            />
                 
             felderArray.push(feld)
         }
@@ -34,14 +35,12 @@ export const Spiel = () => {
     }
 
     const newFields = generateFelder()
-
     const dispatch = useDispatch()
     const felder = useSelector(state => state.spiel.felder)
     const status = useSelector(state => state.spiel.status)
     const zugStatus = useSelector(state => state.spiel.zugStatus)
     const spieler = useSelector(state => state.spiel.spieler)
     const zug = useSelector(state => state.spiel.zug)
-    const hasWon = useSelector(state => state.spiel.hasWon)
     const computerSpielt = useSelector(state => state.menue.computerSpielt)
     const computerZieht = useSelector(state => state.spiel.computerZieht)
 
@@ -63,7 +62,7 @@ export const Spiel = () => {
                 }
             }
         }
-    }, [zugStatus])
+    }, [computerSpielt, dispatch, felder, spieler, status, zug, zugStatus])
 
     useEffect(() => {
         if (status === 'laufend' && zugStatus === 'bereit' && computerZieht) {
@@ -85,10 +84,10 @@ export const Spiel = () => {
             }
             dispatch(setZugStatus('gezogen'))
         }
-    }, [zug])
+    }, [computerZieht, dispatch, felder, spieler, status, zug, zugStatus])
 
     return (
-        <div className='spiel'>
+        <div className='spiel' data-testid='spiel'>
             {newFields}
         </div>
     )

@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
 export const menueSlice = createSlice({
     name: 'menue',
     initialState: {
         spielmodus: '',
-        farbe: '',
+        farbe: 'rot',
         isDisabled: true,
         text: '',
-        computerSpielt: 'spieltNicht'
+        computerSpielt: 'gelb'
     },
     reducers: {
         setSpielmodus: (state, action) => {
@@ -27,10 +27,6 @@ export const menueSlice = createSlice({
         }
     }
 })
-
-export const selectSpielmodus = (state) => state.menue.spielmodus
-export const selectFarbe = (state) => state.menue.farbe
-export const selectIsReady = (state) => state.menue.isReady
 
 export const selectDisplayFarbe = (state) => {
     if (state.menue.spielmodus === 'allein') {

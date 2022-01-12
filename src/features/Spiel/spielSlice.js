@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 
 let felder = []
 let id = 0
@@ -54,7 +54,7 @@ export const spielSlice = createSlice({
             state.spieler === 'rot' ? state.spieler = 'gelb' : state.spieler = 'rot'
         },
         changeFarbe: (state, action) => {
-            const feld = state.felder.filter(f => f.feldKey === action.payload.feldKey)[0]
+            const feld = state.felder.find(f => f.feldKey === action.payload.feldKey)
             const newFarbe = action.payload.farbe
             feld.farbe = newFarbe
         },
@@ -66,11 +66,11 @@ export const spielSlice = createSlice({
             }
         },
         changeIsNextField: (state, action) => {
-            const feld = state.felder.filter(f => f.feldKey === action.payload)[0]
+            const feld = state.felder.find(f => f.feldKey === action.payload)
             feld.isNextField = false
         },
         changeToNextField: (state, action) => {
-            const nextField = state.felder.filter(f => f.feldKey === action.payload)[0]
+            const nextField = state.felder.find(f => f.feldKey === action.payload)
             nextField.isNextField = true
         },
         toggleHasWon: (state, action) => {

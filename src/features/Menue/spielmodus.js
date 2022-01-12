@@ -19,10 +19,10 @@ export const Spielmodus = () => {
             dispatch(setIsDisabled(false))
             dispatch(setComputerSpielt('spieltNicht'))
         }
-    }, [spielmodus])
+    }, [dispatch, spielmodus])
 
     return (
-        <div>
+        <form data-testid='spielmodus'>
             <p>Möchtest du alleine oder zu zweit spielen?</p>
             <input
                 type='radio'
@@ -30,6 +30,7 @@ export const Spielmodus = () => {
                 value='allein'
                 name='spielmodus'
                 onChange={handleSpielmodusInput}
+                data-testid='allein'
             />
             <label
                 for='allein'
@@ -42,12 +43,13 @@ export const Spielmodus = () => {
                 value='zuZweit'
                 name='spielmodus'
                 onChange={handleSpielmodusInput}
+                data-testid='zuZweit'
             />
             <label
                 for='zuZweit'
                 title='Du spielst am selben Computer gegen einen anderen Spieler'
             >Zu zweit</label>
             <br />
-        </div>
+        </form>
     )
 }

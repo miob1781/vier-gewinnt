@@ -12,7 +12,7 @@ export const Feld = (props) => {
     const gridArea = `${row} / ${col} / ${row} / ${col}`
     const spieler = useSelector(state => state.spiel.spieler)
     const felder = useSelector(state => state.spiel.felder)
-    const feld = felder.filter(f => f.feldKey === feldKey)[0]
+    const feld = felder.find(f => f.feldKey === feldKey)
     const farbe = feld.farbe
     const isNextField = feld.isNextField
     const status = useSelector(state => state.spiel.status)
@@ -71,9 +71,9 @@ export const Feld = (props) => {
             }))
             dispatch(changeIsNextField(feldKey))
             if (row > 1) {
-                const nextFieldFeldKey = felder.filter(
+                const nextFieldFeldKey = felder.find(
                     f => f.row === row - 1 && f.col === col
-                    )[0].feldKey
+                    ).feldKey
                 dispatch(changeToNextField(nextFieldFeldKey))
             }
             dispatch(setZugStatus('gezogen'))
@@ -89,6 +89,7 @@ export const Feld = (props) => {
             onMouseOut={handleMouseOut}
             onClick={handleClick}
             onMouseDown={handleMouseDown}
+            data-testid={feldKey}
         ></div>
     )
 }

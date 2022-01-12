@@ -1,5 +1,5 @@
 const getFeld = (felder, row, col) => {
-    const feld = felder.filter(f => f.row === row && f.col === col)[0]
+    const feld = felder.find(f => f.row === row && f.col === col)
     return feld
 }
 
@@ -127,7 +127,7 @@ const checkFieldsNextMove = (felder, feld, spieler, gegner, reihe) => {
     let wessenReihe
     reihe === spieler ? wessenReihe = spieler : wessenReihe = gegner
     let fieldsNextMove = getFieldsNextMove(felder, feld, spieler)
-    const gegnerField = felder.filter(f => f.row === feld.row - 1 && f.col === feld.col)[0]
+    const gegnerField = felder.find(f => f.row === feld.row - 1 && f.col === feld.col)
     fieldsNextMove = getFieldsNextMove(fieldsNextMove, gegnerField, wessenReihe)
     let hasWon = checkHasWon(fieldsNextMove, wessenReihe)
     return hasWon
@@ -173,7 +173,7 @@ export const getComputerZug = (felder, spieler) => {
     // prefers middle
     const middleIsUsable = nextFields.find(f => f.col === 4 && f.row !== 1)
     if (middleIsUsable) {
-        field = nextFields.filter(f => f.col === 4)[0]
+        field = nextFields.find(f => f.col === 4)
         return field
     }
 
