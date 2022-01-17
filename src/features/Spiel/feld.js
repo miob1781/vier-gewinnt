@@ -13,8 +13,7 @@ export const Feld = (props) => {
     const spieler = useSelector(state => state.spiel.spieler)
     const felder = useSelector(state => state.spiel.felder)
     const feld = felder.find(f => f.feldKey === feldKey)
-    const farbe = feld.farbe
-    const isNextField = feld.isNextField
+    const {farbe, isNextField} = feld
     const status = useSelector(state => state.spiel.status)
     const computerZieht = useSelector(state => state.spiel.computerZieht)
 

@@ -66,7 +66,6 @@ test('renders app and starts game properly, player against player; the winner is
     expect(screen.getByText('Los!')).toBeEnabled()
 
     userEvent.click(screen.getByText('Los!'))
-
     userEvent.click(screen.getByTestId('feld39'))
     userEvent.click(screen.getByTestId('feld38'))
     userEvent.click(screen.getByTestId('feld40'))

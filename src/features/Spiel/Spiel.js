@@ -19,9 +19,7 @@ export const Spiel = () => {
     const generateFelder = () => {
         let felderArray = []
         for (let item of felderObject) {
-            const row = item.row
-            const col = item.col
-            const feldKey = item.feldKey
+            const {row, col, feldKey} = item
 
             const feld = <Feld
                 feldKey={feldKey}
