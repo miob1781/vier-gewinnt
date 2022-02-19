@@ -23,6 +23,7 @@ main {
 footer {
     margin-top: 150px;
 }
+
 @media only screen and (max-width: 1000px) {
 
     main {

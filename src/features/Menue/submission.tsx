@@ -1,22 +1,23 @@
-import {useSelector, useDispatch} from 'react-redux'
+import {useAppSelector, useAppDispatch} from '../../app/hooks'
+import {Spieler, SpielStatus} from '../../app/types'
 import {
     resetFelder,
     resetSpieler,
     resetComputerZieht,
     setStatus,
     setZug
-} from '../Spiel/spielSlice.js'
+} from '../Spiel/spielSlice'
 
 export const Submission = () => {
-    const dispatch = useDispatch()
-    const isDisabled = useSelector(state => state.menue.isDisabled)
-    const computerSpielt = useSelector(state => state.menue.computerSpielt)
+    const dispatch = useAppDispatch()
+    const isDisabled: boolean = useAppSelector(state => state.menue.isDisabled)
+    const computerSpielt: Spieler = useAppSelector(state => state.menue.computerSpielt)
 
     const handleSubmissionInput = () => {
         dispatch(resetFelder())
         dispatch(resetSpieler())
         dispatch(resetComputerZieht(computerSpielt))
-        dispatch(setStatus('laufend'))
+        dispatch(setStatus(SpielStatus.Laufend))
         dispatch(setZug('reset'))
     }
 

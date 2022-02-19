@@ -1,8 +1,8 @@
 import './menue.css';
-import {Spielmodus} from './spielmodus.js';
-import {Farbe} from './farbe.js';
-import {Submission} from './submission.js';
-import {Anzeige} from './anzeige.js';
+import {Spielmodus} from './spielmodus';
+import {Farbe} from './farbe';
+import {Submission} from './submission';
+import {Anzeige} from './anzeige';
 
 export const Menue = () => {
     return (

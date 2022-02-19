@@ -1,6 +1,5 @@
-import React from 'react';
-import {Menue} from './features/Menue/menue.js';
-import {Spiel} from './features/Spiel/spiel.js';
+import {Menue} from './features/Menue/menue';
+import {Spiel} from './features/Spiel/spiel';
 import './App.css';
 
 function App() {

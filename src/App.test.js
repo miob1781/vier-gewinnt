@@ -1,8 +1,9 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {Provider} from 'react-redux';
-import {store} from './app/store.js';
+import {store} from './app/store';
 import App from './App';
+import {Spielmodus, Farbe} from './app/types';
 
 test('renders app and starts game properly, player plays red against the computer', () => {
     render(
@@ -19,8 +20,8 @@ test('renders app and starts game properly, player plays red against the compute
 
     userEvent.click(screen.getByTestId('allein'))
 
-    expect(screen.getByTestId('spielmodus')).toHaveFormValues({spielmodus: 'allein'})
-    expect(screen.getByTestId('farbe')).toHaveFormValues({farbe: 'rot'})
+    expect(screen.getByTestId('spielmodus')).toHaveFormValues({spielmodus: Spielmodus.Allein})
+    expect(screen.getByTestId('farbe')).toHaveFormValues({farbe: Farbe.Rot})
     expect(screen.getByText(/Gelb/)).toBeVisible()
     expect(screen.getByText('Los!')).toBeEnabled()
 
@@ -44,7 +45,7 @@ test('renders app and starts game properly, player plays yellow against the comp
     userEvent.click(screen.getByTestId('gelb'))
     userEvent.click(screen.getByText(/Gelb/))
 
-    expect(screen.getByTestId('farbe')).toHaveFormValues({farbe: 'gelb'})
+    expect(screen.getByTestId('farbe')).toHaveFormValues({farbe: Farbe.Gelb})
     expect(screen.getByText('Los!')).toBeEnabled()
 
     userEvent.click(screen.getByText('Los!'))
