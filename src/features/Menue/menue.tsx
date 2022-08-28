@@ -1,4 +1,4 @@
-import './menue.css';
+import './Menue.css';
 import {Spielmodus} from './spielmodus';
 import {Farbe} from './farbe';
 import {Submission} from './submission';
