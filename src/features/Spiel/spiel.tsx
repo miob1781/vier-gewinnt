@@ -1,4 +1,4 @@
-import './spiel.css';
+import './Spiel.css';
 import {useEffect} from 'react';
 import {useAppSelector, useAppDispatch} from '../../app/hooks'
 import {Spieler, SpielStatus, ZugStatus, Feld as F, Farbe} from '../../app/types'
