@@ -1,10 +1,36 @@
+/* special-elite-regular - latin */
+@font-face {
+    font-family: 'Gudea';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('./assets/fonts/gudea-v15-latin-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('./assets/fonts/gudea-v15-latin-regular.woff') format('woff');
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* special-elite-regular - latin */
+@font-face {
+    font-family: 'Special Elite';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('./assets/fonts/special-elite-v18-latin-regular.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('./assets/fonts/special-elite-v18-latin-regular.woff') format('woff');
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     font-family: Gudea, Garamond, sans-serif;
     margin: 20px;
     line-height: 1.4;
@@ -30,7 +56,9 @@ footer {
         margin-top: 20px;
     }
 
-    form {margin-left: 0;}
+    form {
+        margin-left: 0;
+    }
 
     .menue {
         max-width: 300px;
@@ -40,7 +68,8 @@ footer {
 
 @media only screen and (max-width: 600px) {
 
-    html, body {
+    html,
+    body {
         margin: 2vw;
     }
 
