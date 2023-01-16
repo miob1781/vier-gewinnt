@@ -7,7 +7,6 @@ const initialState: MenueState = {
     spielmodus: Spielmodus.Unset,
     farbe: Spieler.Rot,
     isDisabled: true,
-    text: '',
     computerSpielt: Spieler.Gelb
 }
 
@@ -26,9 +25,6 @@ export const menueSlice = createSlice({
         },
         setIsDisabled: (state, action) => {
             state.isDisabled = false
-        },
-        changeText: (state, action: PayloadAction<string>) => {
-            state.text = action.payload
         }
     }
 })
@@ -42,6 +38,5 @@ export const {
     setSpielmodus,
     setFarbe,
     setIsDisabled,
-    changeText,
     setComputerSpielt
 } = menueSlice.actions;

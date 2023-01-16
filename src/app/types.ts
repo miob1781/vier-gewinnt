@@ -70,8 +70,6 @@ export interface MenueState {
     farbe: Spieler,
     /** start button disabled? */
     isDisabled: boolean,
-    /** text displayed when a game has ended */
-    text: string,
     /** color played by the computer */
     computerSpielt: Spieler
 }

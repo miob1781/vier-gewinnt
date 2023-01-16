@@ -1,26 +1,28 @@
-import {useEffect} from 'react'
-import {useAppDispatch, useAppSelector} from '../../app/hooks'
+import {useState} from 'react'
+import {useAppSelector} from '../../app/hooks'
 import {SpielStatus} from '../../app/types'
-import {changeText} from './menueSlice'
 
 export const Anzeige = () => {
-    const dispatch = useAppDispatch()
-    const status: SpielStatus = useAppSelector(state => state.spiel.status)
-    const text: string = useAppSelector(state => state.menue.text)
+    const newStatus: SpielStatus = useAppSelector(state => state.spiel.status)
 
-    useEffect(() => {
-        let newText: string
-        if (status === SpielStatus.RotWon) {
-            newText = 'Rot hat gewonnen!'
-        } else if (status === SpielStatus.GelbWon) {
-            newText = 'Gelb hat gewonnen!'
-        } else if (status === SpielStatus.Draw) {
-            newText = 'Unentschieden!'
+    const [text, setText] = useState("")
+    const [status, setStatus] = useState(newStatus)
+
+    if (status !== newStatus) {
+        setStatus(newStatus)
+
+        if (newStatus === SpielStatus.RotWon) {
+            setText('Rot hat gewonnen!')
+        } else if (newStatus === SpielStatus.GelbWon) {
+            setText('Gelb hat gewonnen!')
+        } else if (newStatus === SpielStatus.Draw) {
+            setText('Unentschieden!')
         } else {
-            newText = ''
+            setText('')
         }
-        dispatch(changeText(newText))
-    }, [status, dispatch])
+    }
+
+    console.log(text);
 
     return <p className='anzeige'>{text}</p>
 }
