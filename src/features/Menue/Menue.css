@@ -48,9 +48,3 @@ label {
 #los:active {
     background-color: green;
 }
-
-#los:disabled {
-    background-color: grey;
-    text-decoration: none;
-    cursor: inherit;
-}
