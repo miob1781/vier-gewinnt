@@ -31,7 +31,8 @@ const initialState: SpielState = {
     status: SpielStatus.VorSpiel,
     zug: -1,
     zugStatus: ZugStatus.Bereit,
-    computerZieht: false
+    computerZieht: false,
+    computerSpielt: Spieler.Gelb
 }
 
 export const spielSlice = createSlice({
@@ -43,6 +44,9 @@ export const spielSlice = createSlice({
         },
         resetSpieler: state => {
             state.spieler = Spieler.Rot
+        },
+        setComputerSpielt: (state, action: PayloadAction<Spieler>) => {
+            state.computerSpielt = action.payload
         },
         setComputerZieht: (state, action: PayloadAction<boolean>) => {
             state.computerZieht = action.payload
@@ -92,6 +96,7 @@ export const {
     resetFelder,
     resetSpieler,
     setComputerZieht,
+    setComputerSpielt,
     toggleSpieler,
     setZugStatus,
     changeFarbe,

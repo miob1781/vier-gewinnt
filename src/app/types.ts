@@ -60,16 +60,6 @@ export enum ToChange {
     UpRight = 'UPRIGHT'
 }
 
-/** state of the Menue slice */
-export interface MenueState {
-    /** playing mode */
-    spielmodus: Spielmodus,
-    /** color of the player */
-    farbe: Spieler,
-    /** color played by the computer */
-    computerSpielt: Spieler
-}
-
 /** field */
 export interface Feld {
     /** field id */
@@ -97,5 +87,7 @@ export interface SpielState {
     /** state of move */
     zugStatus: ZugStatus,
     /** computer on? */
-    computerZieht: boolean
+    computerZieht: boolean,
+    /** color played by the computer */
+    computerSpielt: Spieler
 }

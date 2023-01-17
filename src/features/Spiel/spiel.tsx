@@ -1,5 +1,4 @@
 import './Spiel.css';
-import {useEffect} from 'react';
 import {useAppSelector, useAppDispatch} from '../../app/hooks'
 import {Spieler, SpielStatus, ZugStatus, Feld as F, Farbe} from '../../app/types'
 import {Feld} from './feld'
@@ -32,7 +31,7 @@ export const Spiel = () => {
     const zugStatus: ZugStatus = useAppSelector(state => state.spiel.zugStatus)
     const spieler: Spieler = useAppSelector(state => state.spiel.spieler)
     const zug: number = useAppSelector(state => state.spiel.zug)
-    const computerSpielt: Spieler = useAppSelector(state => state.menue.computerSpielt)
+    const computerSpielt: Spieler = useAppSelector(state => state.spiel.computerSpielt)
     const computerZieht: boolean = useAppSelector(state => state.spiel.computerZieht)
 
     if (status === SpielStatus.Laufend && zugStatus === ZugStatus.Gezogen) {

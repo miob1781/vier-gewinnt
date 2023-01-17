@@ -1,22 +1,21 @@
 import {MouseEventHandler} from 'react'
 import {useAppDispatch} from '../../app/hooks'
 import {Spieler, SpielStatus} from '../../app/types'
-import {setComputerSpielt} from './menueSlice'
 import {
     resetFelder,
     resetSpieler,
     setComputerZieht,
+    setComputerSpielt,
     setStatus,
     setZug
 } from '../Spiel/spielSlice'
 
-const alleinInput = document.getElementById('allein') as HTMLInputElement
-const rotInput = document.getElementById('rot') as HTMLInputElement
-
 export const Submission = () => {
     const dispatch = useAppDispatch()
-
+    
     const handleSubmissionInput: MouseEventHandler = () => {
+        const alleinInput = document.getElementById('allein') as HTMLInputElement
+        const rotInput = document.getElementById('rot') as HTMLInputElement
         let computerZieht: boolean, computerSpielt: Spieler
 
         if (alleinInput.checked) {
