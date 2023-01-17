@@ -1,8 +1,8 @@
 // functions to get a computer move and find a winner
 import {Feld, Spieler, Farbe, ToChange} from '../../app/types'
 
-const getFeld = (felder: Feld[], row: number, col: number): Feld => { // @ts-ignore
-    const feld: Feld = felder.find(f => f.row === row && f.col === col)
+const getFeld = (felder: Feld[], row: number, col: number): Feld => {
+    const feld: Feld = felder.find(f => f.row === row && f.col === col)!
     return feld
 }
 
@@ -131,10 +131,10 @@ const checkFields = (felder: Feld[], nextFields: Feld[], player: Spieler): Feld|
 
 const checkFieldsNextMove = (felder: Feld[], feld: Feld, spieler: Spieler, gegner: Spieler, reihe: Spieler): boolean => {
     let wessenReihe: Spieler = reihe === spieler ? spieler : gegner
-    let fieldsNextMove: Feld[] = getFieldsNextMove(felder, feld, spieler) // @ts-ignore
-    const gegnerField: Feld = felder.find(f => f.row === feld.row - 1 && f.col === feld.col)
+    let fieldsNextMove: Feld[] = getFieldsNextMove(felder, feld, spieler)
+    const gegnerField: Feld = felder.find((f: Feld) => f.row === feld.row - 1 && f.col === feld.col)!
     fieldsNextMove = getFieldsNextMove(fieldsNextMove, gegnerField, wessenReihe)
-    let hasWon: boolean = checkHasWon(fieldsNextMove, wessenReihe)
+    const hasWon: boolean = checkHasWon(fieldsNextMove, wessenReihe)
     return hasWon
 }
 
@@ -144,15 +144,13 @@ export const getComputerZug = (felder: Feld[], spieler: Spieler): Feld => {
     let nextFields: Feld[] = felder.filter(f => f.isNextField)
 
     // finds winning move
-    // @ts-ignore
-    field = checkFields(felder, nextFields, spieler)
+    field = checkFields(felder, nextFields, spieler)!
     if (field) {
         return field
     }
 
     // averts loss
-    // @ts-ignore
-    field = checkFields(felder, nextFields, gegner)
+    field = checkFields(felder, nextFields, gegner)!
     if (field) {
         return field
     }
@@ -178,9 +176,9 @@ export const getComputerZug = (felder: Feld[], spieler: Spieler): Feld => {
     }
 
     // prefers middle
-    const middleIsUsable: Feld|undefined = nextFields.find(f => f.col === 4 && f.row !== 1)
-    if (middleIsUsable) { // @ts-ignore
-        field = nextFields.find(f => f.col === 4)
+    const middleIsUsable: Feld = nextFields.find(f => f.col === 4 && f.row !== 1)!
+    if (middleIsUsable) {
+        field = nextFields.find(f => f.col === 4)!
         return field
     }
 

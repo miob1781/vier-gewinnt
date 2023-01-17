@@ -91,3 +91,13 @@ export interface SpielState {
     /** color played by the computer */
     computerSpielt: Spieler
 }
+
+/** props of the Feld component */
+export interface FeldProps {
+    /** field row */
+    row: number,
+    /** field column */
+    col: number,
+    /** field id */
+    feldKey: string
+}

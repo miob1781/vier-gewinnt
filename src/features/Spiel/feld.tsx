@@ -1,17 +1,7 @@
 import {MouseEvent} from 'react'
 import {useAppSelector, useAppDispatch} from '../../app/hooks'
-import {Spieler, Farbe, SpielStatus, ZugStatus, Feld as F} from '../../app/types'
+import {Spieler, Farbe, SpielStatus, ZugStatus, Feld as F, FeldProps} from '../../app/types'
 import {changeFarbe, changeIsNextField, changeToNextField, setZugStatus} from './spielSlice'
-
-/** props of the Feld component */
-interface FeldProps {
-    /** field row */
-    row: number,
-    /** field column */
-    col: number,
-    /** field id */
-    feldKey: string
-}
 
 export const Feld = (props: FeldProps) => {
     const dispatch = useAppDispatch()
@@ -19,8 +9,7 @@ export const Feld = (props: FeldProps) => {
     const gridArea: string = `${row} / ${col} / ${row} / ${col}`
     const spieler: Spieler = useAppSelector(state => state.spiel.spieler)
     const felder: F[] = useAppSelector(state => state.spiel.felder)
-    // @ts-ignore
-    const feld: F = felder.find((f: Feld) => f.feldKey === feldKey)
+    const feld: F = felder.find((f: F) => f.feldKey === feldKey)!
     const {farbe, isNextField} = feld
     const status: SpielStatus = useAppSelector(state => state.spiel.status)
     const computerZieht: boolean = useAppSelector(state => state.spiel.computerZieht)
@@ -79,10 +68,10 @@ export const Feld = (props: FeldProps) => {
                 farbe: spieler === Spieler.Rot ? Farbe.Rot : Farbe.Gelb
             }))
             dispatch(changeIsNextField(feldKey))
-            if (row > 1) { // @ts-ignore
+            if (row > 1) {
                 const nextFieldFeldKey: string = felder.find(
                     (f: F) => f.row === row - 1 && f.col === col
-                ).feldKey
+                )!.feldKey
                 dispatch(changeToNextField(nextFieldFeldKey))
             }
             dispatch(setZugStatus(ZugStatus.Gezogen))

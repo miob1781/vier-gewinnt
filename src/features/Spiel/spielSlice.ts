@@ -61,10 +61,7 @@ export const spielSlice = createSlice({
             state.spieler = state.spieler === Spieler.Rot ? Spieler.Gelb : Spieler.Rot
         },
         changeFarbe: (state, action: PayloadAction<{feldKey: string, farbe: Farbe}>) => {
-            // Here and elsewhere, TypeScript warns that the values of feld could be undefined.
-            // But since the callback always finds a matching feldkey, the warning can safely be ignored.
-            // @ts-ignore
-            const feld: Feld = state.felder.find((f: Feld) => f.feldKey === action.payload.feldKey)
+            const feld: Feld = state.felder.find((f: Feld) => f.feldKey === action.payload.feldKey)!
             const newFarbe: Farbe = action.payload.farbe
             feld.farbe = newFarbe
         },
@@ -76,13 +73,11 @@ export const spielSlice = createSlice({
             }
         },
         changeIsNextField: (state, action: PayloadAction<string>) => {
-            // @ts-ignore
-            const feld: Feld = state.felder.find((f: Feld) => f.feldKey === action.payload)
+            const feld: Feld = state.felder.find((f: Feld) => f.feldKey === action.payload)!
             feld.isNextField = false
         },
         changeToNextField: (state, action: PayloadAction<string>) => {
-            // @ts-ignore
-            const nextField: Feld = state.felder.find((f: Feld) => f.feldKey === action.payload)
+            const nextField: Feld = state.felder.find((f: Feld) => f.feldKey === action.payload)!
             nextField.isNextField = true
         },
         toggleComputerZieht: state => {
