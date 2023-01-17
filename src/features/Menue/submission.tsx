@@ -1,22 +1,41 @@
-import {useAppSelector, useAppDispatch} from '../../app/hooks'
+import {MouseEventHandler} from 'react'
+import {useAppDispatch} from '../../app/hooks'
 import {Spieler, SpielStatus} from '../../app/types'
+import {setComputerSpielt} from './menueSlice'
 import {
     resetFelder,
     resetSpieler,
-    resetComputerZieht,
+    setComputerZieht,
     setStatus,
     setZug
 } from '../Spiel/spielSlice'
 
+const alleinInput = document.getElementById('allein') as HTMLInputElement
+const rotInput = document.getElementById('rot') as HTMLInputElement
+
 export const Submission = () => {
     const dispatch = useAppDispatch()
-    const isDisabled: boolean = useAppSelector(state => state.menue.isDisabled)
-    const computerSpielt: Spieler = useAppSelector(state => state.menue.computerSpielt)
 
-    const handleSubmissionInput = () => {
+    const handleSubmissionInput: MouseEventHandler = () => {
+        let computerZieht: boolean, computerSpielt: Spieler
+
+        if (alleinInput.checked) {
+            if (rotInput.checked) {
+                computerZieht = false
+                computerSpielt = Spieler.Rot
+            } else {
+                computerZieht = true
+                computerSpielt = Spieler.Gelb
+            }
+        } else {
+            computerZieht = false
+            computerSpielt = Spieler.Keiner
+        }
+
+        dispatch(setComputerZieht(computerZieht))
+        dispatch(setComputerSpielt(computerSpielt))
         dispatch(resetFelder())
         dispatch(resetSpieler())
-        dispatch(resetComputerZieht(computerSpielt))
         dispatch(setStatus(SpielStatus.Laufend))
         dispatch(setZug('reset'))
     }
@@ -26,7 +45,6 @@ export const Submission = () => {
             type='button'
             id='los'
             onClick={handleSubmissionInput}
-            disabled={isDisabled}
             title='Startet neues Spiel'
         >Los!</button>
     )

@@ -1,28 +1,7 @@
-import {useEffect} from 'react'
-import {useAppDispatch, useAppSelector} from '../../app/hooks'
-import {Spielmodus as SM, Spieler} from '../../app/types'
-import {setSpielmodus, setIsDisabled, setComputerSpielt} from './menueSlice'
+import {ChangeEventHandler} from 'react'
+import {Spielmodus as SM} from '../../app/types'
 
-export const Spielmodus = () => {
-    const dispatch = useAppDispatch()
-    const spielmodus: SM = useAppSelector(state => state.menue.spielmodus)
-
-    const handleSpielmodusInput = () => {
-        // @ts-ignore
-        const spielmod: SM = document.querySelector('input[name="spielmodus"]:checked').value;
-        dispatch(setSpielmodus(spielmod))
-    }
-
-    useEffect(() => {
-        if (spielmodus === SM.Allein) {
-            dispatch(setIsDisabled(true))
-        }
-        else if (spielmodus === SM.ZuZweit) {
-            dispatch(setIsDisabled(false))
-            dispatch(setComputerSpielt(Spieler.Keiner))
-        }
-    }, [dispatch, spielmodus])
-
+export const Spielmodus = ({onChange}: {onChange: ChangeEventHandler}) => {
     return (
         <form data-testid='spielmodus'>
             <p>Möchtest du alleine oder zu zweit spielen?</p>
@@ -31,8 +10,9 @@ export const Spielmodus = () => {
                 id='allein'
                 value={SM.Allein}
                 name='spielmodus'
-                onChange={handleSpielmodusInput}
+                onChange={onChange}
                 data-testid='allein'
+                defaultChecked
             />
             <label
                 htmlFor='allein'
@@ -44,7 +24,7 @@ export const Spielmodus = () => {
                 id='zuZweit'
                 value={SM.ZuZweit}
                 name='spielmodus'
-                onChange={handleSpielmodusInput}
+                onChange={onChange}
                 data-testid='zuZweit'
             />
             <label

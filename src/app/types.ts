@@ -1,7 +1,5 @@
 /** used to select the playing mode */
 export enum Spielmodus {
-    /** the playing mode is not yet set when starting the app */
-    Unset = 'UNSET',
     /** play against the computer */
     Allein = 'ALLEIN',
     /** play against another person at the same computer */
@@ -68,8 +66,6 @@ export interface MenueState {
     spielmodus: Spielmodus,
     /** color of the player */
     farbe: Spieler,
-    /** start button disabled? */
-    isDisabled: boolean,
     /** color played by the computer */
     computerSpielt: Spieler
 }

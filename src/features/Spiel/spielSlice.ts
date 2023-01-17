@@ -44,9 +44,8 @@ export const spielSlice = createSlice({
         resetSpieler: state => {
             state.spieler = Spieler.Rot
         },
-        resetComputerZieht: (state, action: PayloadAction<Spieler>) => {
-            const computerSpielt: Spieler = action.payload
-            state.computerZieht = computerSpielt === Spieler.Rot
+        setComputerZieht: (state, action: PayloadAction<boolean>) => {
+            state.computerZieht = action.payload
         },
         setStatus: (state, action: PayloadAction<SpielStatus>) => {
             state.status = action.payload
@@ -92,7 +91,7 @@ export default spielSlice.reducer
 export const {
     resetFelder,
     resetSpieler,
-    resetComputerZieht,
+    setComputerZieht,
     toggleSpieler,
     setZugStatus,
     changeFarbe,

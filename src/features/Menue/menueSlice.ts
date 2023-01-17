@@ -1,12 +1,10 @@
 // The Menue slice is used for starting the game.
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '../../app/store'
 import {Spielmodus, Spieler, MenueState} from '../../app/types'
 
 const initialState: MenueState = {
-    spielmodus: Spielmodus.Unset,
+    spielmodus: Spielmodus.Allein,
     farbe: Spieler.Rot,
-    isDisabled: true,
     computerSpielt: Spieler.Gelb
 }
 
@@ -22,21 +20,13 @@ export const menueSlice = createSlice({
         },
         setFarbe: (state, action: PayloadAction<Spieler>) => {
             state.farbe = action.payload
-        },
-        setIsDisabled: (state, action) => {
-            state.isDisabled = false
         }
     }
 })
-
-export const selectDisplayFarbe = (state: RootState): {display: string} => {
-    return state.menue.spielmodus === Spielmodus.Allein ? {display: 'block'} : {display: 'none'}
-}
 
 export default menueSlice.reducer;
 export const {
     setSpielmodus,
     setFarbe,
-    setIsDisabled,
     setComputerSpielt
 } = menueSlice.actions;

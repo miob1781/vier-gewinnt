@@ -22,7 +22,5 @@ export const Anzeige = () => {
         }
     }
 
-    console.log(text);
-
     return <p className='anzeige'>{text}</p>
 }

@@ -1,31 +1,16 @@
-import {useAppSelector, useAppDispatch} from '../../app/hooks'
 import {Spieler} from '../../app/types'
-import {setFarbe, setIsDisabled, selectDisplayFarbe, setComputerSpielt} from './menueSlice'
 
-export const Farbe = () => {
-    const dispatch = useAppDispatch()
-    const displayFarbe: {display: string} = useAppSelector(selectDisplayFarbe)
-
-    const handleFarbeInput = () => {
-        // @ts-ignore
-        const farbe: Spieler = document.querySelector('input[name="farbe"]:checked').value;
-        let computerFarbe: Spieler = farbe === Spieler.Rot ? Spieler.Gelb : Spieler.Rot
-        dispatch(setFarbe(farbe))
-        dispatch(setComputerSpielt(computerFarbe))
-        dispatch(setIsDisabled(false))
-    }
-
+export const Farbe = ({display}: {display: string}) => {
     return (
-        <form className='farbe' style={displayFarbe} data-testid='farbe'>
+        <form className='farbe' style={{display}} data-testid='farbe'>
             <p>Wen möchtest du spielen?</p>
             <input
                 type='radio'
                 id='rot'
                 value={Spieler.Rot}
                 name='farbe'
-                onChange={handleFarbeInput}
                 data-testid='rot'
-                checked
+                defaultChecked
             />
             <label
                 htmlFor='rot'
@@ -37,7 +22,6 @@ export const Farbe = () => {
                 id='gelb'
                 value={Spieler.Gelb}
                 name='farbe'
-                onChange={handleFarbeInput}
                 data-testid='gelb'
             />
             <label
