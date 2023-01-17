@@ -35,47 +35,43 @@ export const Spiel = () => {
     const computerSpielt: Spieler = useAppSelector(state => state.menue.computerSpielt)
     const computerZieht: boolean = useAppSelector(state => state.spiel.computerZieht)
 
-    useEffect(() => {
-        if (status === SpielStatus.Laufend && zugStatus === ZugStatus.Gezogen) {
-            dispatch(setZugStatus(ZugStatus.Bereit))
-            const resultCheckHasWon: boolean = checkHasWon(felder, spieler)
-            if (resultCheckHasWon) {
-                let winnerStatus: SpielStatus = spieler === Spieler.Rot
-                ? SpielStatus.RotWon
-                : SpielStatus.GelbWon
-                dispatch(setStatus(winnerStatus))
-            } else if (zug === 41) {
-                dispatch(setStatus(SpielStatus.Draw))
-            } else {
-                dispatch(setZug('add'))
-                dispatch(toggleSpieler())
-                if (computerSpielt !== Spieler.Keiner) {
-                    dispatch(toggleComputerZieht())
-                }
+    if (status === SpielStatus.Laufend && zugStatus === ZugStatus.Gezogen) {
+        dispatch(setZugStatus(ZugStatus.Bereit))
+        const resultCheckHasWon: boolean = checkHasWon(felder, spieler)
+        if (resultCheckHasWon) {
+            let winnerStatus: SpielStatus = spieler === Spieler.Rot
+            ? SpielStatus.RotWon
+            : SpielStatus.GelbWon
+            dispatch(setStatus(winnerStatus))
+        } else if (zug === 41) {
+            dispatch(setStatus(SpielStatus.Draw))
+        } else {
+            dispatch(setZug('add'))
+            dispatch(toggleSpieler())
+            if (computerSpielt !== Spieler.Keiner) {
+                dispatch(toggleComputerZieht())
             }
         }
-    }, [computerSpielt, dispatch, felder, spieler, status, zug, zugStatus])
+    }
 
-    useEffect(() => {
-        if (status === SpielStatus.Laufend && zugStatus === ZugStatus.Bereit && computerZieht) {
-            const field: F = getComputerZug(felder, spieler)
-            const feldKey: string = field.feldKey
-            const row: number = field.row
-            const col: number = field.col
-            dispatch(changeFarbe({
-                feldKey: feldKey,
-                farbe: spieler === Spieler.Rot ? Farbe.Rot : Farbe.Gelb
-            }))
-            dispatch(changeIsNextField(feldKey))
-            if (row > 1) {
-                const nextFieldFeldKey: string = felder.filter(
-                    (f: F) => f.row === row - 1 && f.col === col
-                )[0].feldKey
-                dispatch(changeToNextField(nextFieldFeldKey))
-            }
-            dispatch(setZugStatus(ZugStatus.Gezogen))
+    if (status === SpielStatus.Laufend && zugStatus === ZugStatus.Bereit && computerZieht) {
+        const field: F = getComputerZug(felder, spieler)
+        const feldKey: string = field.feldKey
+        const row: number = field.row
+        const col: number = field.col
+        dispatch(changeFarbe({
+            feldKey: feldKey,
+            farbe: spieler === Spieler.Rot ? Farbe.Rot : Farbe.Gelb
+        }))
+        dispatch(changeIsNextField(feldKey))
+        if (row > 1) {
+            const nextFieldFeldKey: string = felder.filter(
+                (f: F) => f.row === row - 1 && f.col === col
+            )[0].feldKey
+            dispatch(changeToNextField(nextFieldFeldKey))
         }
-    }, [computerZieht, dispatch, felder, spieler, status, zug, zugStatus])
+        dispatch(setZugStatus(ZugStatus.Gezogen))
+    }
 
     return (
         <div className='spiel' data-testid='spiel'>
